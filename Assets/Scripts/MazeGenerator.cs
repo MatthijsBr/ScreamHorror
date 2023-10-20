@@ -35,6 +35,7 @@ namespace Unity.AI.Navigation
             Remove3Walls();
             Duplicate3Times();
             Remove3Walls();
+            DeleteMiddle2x2();
             CreatePhysicalLevel();
         }
 
@@ -61,6 +62,21 @@ namespace Unity.AI.Navigation
                     verticalWalls[y].Add(true);
                 }
             }
+        }
+
+        private void DeleteMiddle2x2()
+        {
+            int middleColumnX = Mathf.FloorToInt(verticalWalls[0].Count / 2);
+            int startingY = verticalWalls.Count / 2 - 1;
+            for (int x = middleColumnX - 1; x <= middleColumnX + 1; x++)
+                for (int y = startingY; y < startingY + 2; y++)
+                    verticalWalls[y][x] = false;
+
+            int middleRowY = Mathf.FloorToInt(horizontalWalls.Count / 2);
+            int startingX = horizontalWalls[0].Count / 2 - 1;
+            for (int y = middleRowY - 1; y <= middleRowY + 1; y++)
+                for (int x = startingX; x < startingX + 2; x++)
+                    horizontalWalls[y][x] = false;
         }
 
         /// <summary>

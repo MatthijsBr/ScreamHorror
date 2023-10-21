@@ -6,6 +6,7 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] Transform rightHand;
     [SerializeField] Transform leftHand;
+    [SerializeField] Transform drop;
 
     FlashLight itemInRightHand;
     Item itemInLeftHand;
@@ -36,13 +37,13 @@ public class InventoryManager : MonoBehaviour
         }
 
         // Check if player pressed pickup
-        if (Input.GetButton("PickUp") && itemSelected != null)
+        if (Input.GetButtonDown("PickUp") && itemSelected != null)
             PickUp(itemSelected);
 
         // Check whether player uses any hand
-        if (Input.GetButton("FlashLight") && itemInRightHand != null)
+        if (Input.GetButtonDown("FlashLight") && itemInRightHand != null)
             itemInRightHand.Use();
-        if (Input.GetButton("LeftHand") && itemInLeftHand != null)
+        if (Input.GetButtonDown("LeftHand") && itemInLeftHand != null)
             itemInLeftHand.Use();
     }
 
@@ -57,6 +58,10 @@ public class InventoryManager : MonoBehaviour
         } 
         else
         {
+            if (itemInLeftHand != null)
+            {
+                DropLeftHandItem();
+            }
             itemInLeftHand = item;
             item.transform.SetParent(transform);
             item.transform.position = leftHand.position;
@@ -64,8 +69,11 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void RemoveLeftHandItem()
+    public void DropLeftHandItem()
     {
+        itemInLeftHand.Drop();
+        itemInLeftHand.transform.position = drop.position;
+        itemInLeftHand.transform.parent = null;
         itemInLeftHand = null;
     }
 }

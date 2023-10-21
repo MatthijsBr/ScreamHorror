@@ -21,7 +21,7 @@ public class StackableCube : Item
         if (Physics.Raycast(rayOrigin, mainCamera.transform.forward, out hit, placeRange))
         {
             // Remove from right hand of player
-            transform.GetComponentInParent<InventoryManager>().RemoveLeftHandItem();
+            transform.GetComponentInParent<InventoryManager>().DropLeftHandItem();
 
             // Place cube in the right place
             float distance = Vector3.Distance(rayOrigin, hit.point) - transform.localScale.x;
@@ -30,7 +30,6 @@ public class StackableCube : Item
 
             // Activate physics
             GetComponent<Rigidbody>().isKinematic = false;
-            transform.parent = null;
         }
     }
 
@@ -38,5 +37,10 @@ public class StackableCube : Item
     {
         Debug.Log("Disabled physics");
         GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    public override void Drop()
+    {
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 }

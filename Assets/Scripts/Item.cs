@@ -7,4 +7,6 @@ public abstract class Item : MonoBehaviour
     protected bool isPickedUp = false;
 
     public abstract void Use();
+
+    public virtual void PickUp() { }
 }

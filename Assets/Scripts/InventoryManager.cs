@@ -58,6 +58,14 @@ public class InventoryManager : MonoBehaviour
         else
         {
             itemInLeftHand = item;
+            item.transform.SetParent(transform);
+            item.transform.position = leftHand.position;
+            item.PickUp();
         }
+    }
+
+    public void RemoveLeftHandItem()
+    {
+        itemInLeftHand = null;
     }
 }

@@ -29,11 +29,9 @@ public class ConnectLines : MonoBehaviour
             {     
                 currentKnob++;
 
-                // Play correct sound
+                
                 if (currentKnob >= 3)
                 {
-                    // Puzzle is solved, unlock door
-
                     puzzle.PuzzleFinished(true);
                 }
             }

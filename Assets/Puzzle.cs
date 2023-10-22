@@ -28,6 +28,8 @@ public class Puzzle : MonoBehaviour
 
     public void PuzzleFinished(bool succesFull)
     {
+        // Play correct sound
+
         UIToOpen.SetActive(false);
         player.EnableMovement();
 

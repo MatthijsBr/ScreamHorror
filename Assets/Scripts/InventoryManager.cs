@@ -28,23 +28,44 @@ public class InventoryManager : MonoBehaviour
         RaycastHit hit;
 
         Item itemSelected = null;
+        Puzzle puzzleSelected = null;
 
         if (Physics.Raycast(rayOrigin, mainCamera.transform.forward, out hit, handRange))
         {
             itemSelected = hit.collider.GetComponent<Item>();
+            puzzleSelected = hit.collider.GetComponent<Puzzle>();
 
             // Maybe show some button prompt in UI so the user knows which button to use to pick it up.
         }
 
         // Check if player pressed pickup
-        if (Input.GetButtonDown("PickUp") && itemSelected != null)
-            PickUp(itemSelected);
+        if (Input.GetButtonDown("Interact"))
+        {
+            if (itemSelected != null)
+                PickUp(itemSelected);
+            if (puzzleSelected != null)
+                Activate(puzzleSelected);
+        }
+            
 
         // Check whether player uses any hand
         if (Input.GetButtonDown("FlashLight") && itemInRightHand != null)
             itemInRightHand.Use();
         if (Input.GetButtonDown("LeftHand") && itemInLeftHand != null)
             itemInLeftHand.Use();
+    }
+
+    void Activate(Puzzle puzzle)
+    {
+        GetComponent<PlayerMovement>().enabled = false;
+        GetComponentInChildren<CameraController>().enabled = false;
+        puzzle.ActivateUI();
+    }
+
+    public void EnableMovement()
+    {
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponentInChildren<CameraController>().enabled = true;
     }
 
     void PickUp(Item item)

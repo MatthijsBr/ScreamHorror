@@ -9,6 +9,7 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] MainManager main;
     [SerializeField] Image black;
     [SerializeField] float fadeTime = 2f;
+    [SerializeField] float deathtime = 30f;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +71,8 @@ public class PlayerDeath : MonoBehaviour
         transform.position = new Vector3(Mathf.Floor(transform.position.x) + 0.5f, transform.position.y, Mathf.Floor(transform.position.z) + 0.5f);
 
         // Play voice lines
+        GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds(deathtime);
 
         // Fade to game
         for (float a = 1; a > 0f; a -= 0.01f)

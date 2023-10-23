@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/BeginScene.unity
+    guid: 38fed98f8ed03704c90ba4f3ed66d3e1
+  - enabled: 1
     path: Assets/Scenes/SimonKnoeien.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: e028b9e9c3b1ca641b63d05a04d3c548
   m_configObjects: {}

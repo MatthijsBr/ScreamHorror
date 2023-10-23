@@ -6,6 +6,7 @@ public class StackableCube : Item
 {
     [SerializeField] float placeRange = 2f;
     Camera mainCamera;
+    [SerializeField] GameObject usePrompt;
 
     private void Start()
     {
@@ -22,6 +23,7 @@ public class StackableCube : Item
         {
             // Remove from right hand of player
             transform.GetComponentInParent<InventoryManager>().DropLeftHandItem();
+            isPickedUp = false;
 
             // Place cube in the right place
             float distance = Vector3.Distance(rayOrigin, hit.point) - transform.localScale.x;
@@ -35,12 +37,15 @@ public class StackableCube : Item
 
     public override void PickUp()
     {
-        Debug.Log("Disabled physics");
         GetComponent<Rigidbody>().isKinematic = true;
+        usePrompt.SetActive(true);
+        base.PickUp();
     }
 
     public override void Drop()
     {
         GetComponent<Rigidbody>().isKinematic = false;
+        usePrompt.SetActive(false);
+        base.Drop();
     }
 }

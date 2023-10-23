@@ -7,6 +7,10 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] Transform rightHand;
     [SerializeField] Transform leftHand;
     [SerializeField] Transform drop;
+    [SerializeField] MainManager mainManager;
+
+    [SerializeField] GameObject pickupPrompt;
+    [SerializeField] GameObject puzzlePrompt;
 
     FlashLight itemInRightHand;
     Item itemInLeftHand;
@@ -34,9 +38,12 @@ public class InventoryManager : MonoBehaviour
         {
             itemSelected = hit.collider.GetComponent<Item>();
             puzzleSelected = hit.collider.GetComponent<Puzzle>();
-
-            // Maybe show some button prompt in UI so the user knows which button to use to pick it up.
         }
+
+        // Display prompts
+        pickupPrompt.SetActive(itemSelected != null);
+        puzzlePrompt.SetActive(puzzleSelected != null);
+
 
         // Check if player pressed pickup
         if (Input.GetButtonDown("Interact"))
@@ -53,6 +60,25 @@ public class InventoryManager : MonoBehaviour
             itemInRightHand.Use();
         if (Input.GetButtonDown("LeftHand") && itemInLeftHand != null)
             itemInLeftHand.Use();
+    }
+
+    public void HideItemsInMaze()
+    {
+        if (itemInLeftHand != null)
+        {
+            itemInLeftHand.transform.parent = null;
+            itemInLeftHand.Drop();
+            itemInLeftHand.transform.position = mainManager.RandomPositionInMaze() + Vector3.up * 0.5f;
+            itemInLeftHand = null;
+        }
+
+        if (itemInRightHand != null)
+        {
+            itemInRightHand.transform.parent = null;
+            itemInRightHand.transform.position = mainManager.RandomPositionInMaze() + Vector3.up * 0.5f;
+            itemInRightHand = null;
+        }
+            
     }
 
     void Activate(Puzzle puzzle)
@@ -86,6 +112,7 @@ public class InventoryManager : MonoBehaviour
             itemInLeftHand = item;
             item.transform.SetParent(transform);
             item.transform.position = leftHand.position;
+            item.transform.up = leftHand.transform.up;
             item.PickUp();
         }
     }

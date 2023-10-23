@@ -8,10 +8,13 @@ public abstract class Item : MonoBehaviour
 
     public abstract void Use();
 
-    public virtual void PickUp() { }
+    public virtual void PickUp() 
+    {
+        isPickedUp = true;
+    }
 
     public virtual void Drop()
     {
-
+        isPickedUp = false;
     }
 }

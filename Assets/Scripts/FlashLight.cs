@@ -6,6 +6,7 @@ public class FlashLight : Item
 {
     bool on;
     [SerializeField] float batteryTime = 20f;
+    [SerializeField] GameObject flashlightPrompt;
 
     public override void Use()
     {
@@ -14,6 +15,8 @@ public class FlashLight : Item
 
     private void Update()
     {
+        flashlightPrompt.SetActive(isPickedUp);
+
         if (on)
         {
             batteryTime -= Time.deltaTime;
@@ -26,6 +29,5 @@ public class FlashLight : Item
                 // Randomize light intensity or turn off and on at random intervals
             }
         }
-
     }
 }

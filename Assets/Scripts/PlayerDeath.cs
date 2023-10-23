@@ -26,8 +26,7 @@ public class PlayerDeath : MonoBehaviour
     {
         if (other.tag == "Antagonist")
         {
-            StartCoroutine(OnDeath(other.transform));
-            
+            StartCoroutine(OnDeath(other.transform));        
         }
     }
 
@@ -35,7 +34,6 @@ public class PlayerDeath : MonoBehaviour
     {
         for(float a = 0; a < 1f; a+=0.01f)
         {
-            Debug.Log(a);
             black.color = new Color(0, 0, 0, a);
             yield return new WaitForSeconds(seconds / 100f);
         }
@@ -55,7 +53,6 @@ public class PlayerDeath : MonoBehaviour
         // Fade to black
         for (float a = 0; a < 1f; a += 0.01f)
         {
-            Debug.Log(a);
             black.color = new Color(0, 0, 0, a);
             yield return new WaitForSeconds(fadeTime / 100f);
         }
@@ -77,7 +74,6 @@ public class PlayerDeath : MonoBehaviour
         // Fade to game
         for (float a = 1; a > 0f; a -= 0.01f)
         {
-            Debug.Log(a);
             black.color = new Color(0, 0, 0, a);
             yield return new WaitForSeconds(fadeTime / 100f);
         }

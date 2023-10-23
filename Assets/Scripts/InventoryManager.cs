@@ -9,6 +9,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] Transform drop;
     [SerializeField] MainManager mainManager;
 
+    [SerializeField] GameObject pickupPrompt;
+    [SerializeField] GameObject puzzlePrompt;
+
     FlashLight itemInRightHand;
     Item itemInLeftHand;
     Camera mainCamera;
@@ -35,9 +38,12 @@ public class InventoryManager : MonoBehaviour
         {
             itemSelected = hit.collider.GetComponent<Item>();
             puzzleSelected = hit.collider.GetComponent<Puzzle>();
-
-            // Maybe show some button prompt in UI so the user knows which button to use to pick it up.
         }
+
+        // Display prompts
+        pickupPrompt.SetActive(itemSelected != null);
+        puzzlePrompt.SetActive(puzzleSelected != null);
+
 
         // Check if player pressed pickup
         if (Input.GetButtonDown("Interact"))

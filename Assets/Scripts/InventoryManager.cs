@@ -7,6 +7,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] Transform rightHand;
     [SerializeField] Transform leftHand;
     [SerializeField] Transform drop;
+    [SerializeField] MainManager mainManager;
 
     FlashLight itemInRightHand;
     Item itemInLeftHand;
@@ -55,6 +56,25 @@ public class InventoryManager : MonoBehaviour
             itemInLeftHand.Use();
     }
 
+    public void HideItemsInMaze()
+    {
+        if (itemInLeftHand != null)
+        {
+            itemInLeftHand.transform.parent = null;
+            itemInLeftHand.Drop();
+            itemInLeftHand.transform.position = mainManager.RandomPositionInMaze() + Vector3.up * 0.5f;
+            itemInLeftHand = null;
+        }
+
+        if (itemInRightHand != null)
+        {
+            itemInRightHand.transform.parent = null;
+            itemInRightHand.transform.position = mainManager.RandomPositionInMaze() + Vector3.up * 0.5f;
+            itemInRightHand = null;
+        }
+            
+    }
+
     void Activate(Puzzle puzzle)
     {
         GetComponent<PlayerMovement>().enabled = false;
@@ -86,6 +106,7 @@ public class InventoryManager : MonoBehaviour
             itemInLeftHand = item;
             item.transform.SetParent(transform);
             item.transform.position = leftHand.position;
+            item.transform.up = leftHand.transform.up;
             item.PickUp();
         }
     }

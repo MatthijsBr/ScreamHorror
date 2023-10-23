@@ -19,5 +19,11 @@ public class Antagonist : MonoBehaviour
     {
         agent.destination = player.position;
     }
+
+    public float Speed
+    {
+        get { return agent.speed; }
+        set { agent.speed = value; }
+    }
 }
 

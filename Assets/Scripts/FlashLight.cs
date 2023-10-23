@@ -7,6 +7,7 @@ public class FlashLight : Item
     bool on;
     [SerializeField] float batteryTime = 20f;
     [SerializeField] GameObject flashlightPrompt;
+    [SerializeField] Light spotlight;
 
     public override void Use()
     {
@@ -22,12 +23,15 @@ public class FlashLight : Item
             batteryTime -= Time.deltaTime;
 
             // Shine some light
-            Debug.Log("Shining Light");
+            spotlight.enabled = true;
 
-            if (batteryTime < batteryTime / 2)
+            if (batteryTime < 60)
             {
                 // Randomize light intensity or turn off and on at random intervals
+                spotlight.intensity = Random.Range(0f, 1f);
             }
         }
+        else
+            spotlight.enabled = false;
     }
 }

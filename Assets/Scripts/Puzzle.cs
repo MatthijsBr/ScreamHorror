@@ -5,7 +5,7 @@ using UnityEngine;
 public class Puzzle : MonoBehaviour
 {
     [SerializeField] GameObject UIToOpen;
-    [SerializeField] Animator DoorToOpen;
+    [SerializeField] GameObject[] doorsToOpen;
     [SerializeField] InventoryManager player;
     
     // Start is called before the first frame update
@@ -36,7 +36,14 @@ public class Puzzle : MonoBehaviour
         if (succesFull)
         {
             Debug.Log("Door opened");
+
             // Open the door
+            foreach (GameObject door in doorsToOpen)
+            {
+                door.GetComponent<Animation>().Play();
+                door.GetComponent<Collider>().enabled = false;
+            }
+
         }
 
     }

@@ -10,7 +10,7 @@ public class MazeGenerator : MonoBehaviour
     List<List<bool>> horizontalWalls;
     List<List<bool>> verticalWalls;
 
-    Vector3 horizontalWallOffset = new Vector3(0, 0.5f, 0.5f);
+    [SerializeField] Vector3 horizontalWallOffset = new Vector3(0, 0.5f, 0.5f);
     [SerializeField] Vector3 verticalWallOffset = new Vector3(0.5f, 0.5f, 0f);
 
 

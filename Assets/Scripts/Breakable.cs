@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Breakable : MonoBehaviour
 {
@@ -14,9 +15,11 @@ public class Breakable : MonoBehaviour
         if (hitsToBreak <= 0)
         {
             Debug.Log("Door has been broken");
+
             // Play sound effect
 
             // Destroy door
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

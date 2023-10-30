@@ -7,11 +7,12 @@ public class Puzzle : MonoBehaviour
     [SerializeField] GameObject UIToOpen;
     [SerializeField] GameObject[] doorsToOpen;
     [SerializeField] InventoryManager player;
+    AudioSource audioSource;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,6 +36,7 @@ public class Puzzle : MonoBehaviour
 
         if (succesFull)
         {
+            audioSource.Play();
             Debug.Log("Door opened");
 
             // Open the door
@@ -43,7 +45,6 @@ public class Puzzle : MonoBehaviour
                 door.GetComponent<Animation>().Play();
                 door.GetComponent<Collider>().enabled = false;
             }
-
         }
 
     }

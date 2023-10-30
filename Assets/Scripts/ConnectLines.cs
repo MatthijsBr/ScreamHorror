@@ -9,11 +9,15 @@ public class ConnectLines : MonoBehaviour
     [SerializeField] float minRotation = 80f;
     [SerializeField] float maxRotation = 100f;
     [SerializeField] Puzzle puzzle;
+    [SerializeField] AudioClip correctSound;
+    [SerializeField] AudioClip incorrectSound;    
+    AudioSource audioSource;
     int currentKnob = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,7 +25,7 @@ public class ConnectLines : MonoBehaviour
     {
         Knobs[currentKnob].Rotate(new Vector3(0, 0, rotateSpeed * Time.deltaTime));
         
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetButtonDown("Interact"))
         {
             // Check if rotation is correct
             if ((Knobs[currentKnob].rotation.eulerAngles.z > minRotation && Knobs[currentKnob].rotation.eulerAngles.z < maxRotation) ||
@@ -32,12 +36,14 @@ public class ConnectLines : MonoBehaviour
                 
                 if (currentKnob >= 3)
                 {
+                    audioSource.PlayOneShot(correctSound);
                     puzzle.PuzzleFinished(true);
                 }
             }
             else
             {
                 // Play incorrect sound
+                audioSource.PlayOneShot(incorrectSound);
 
                 // Reset puzzle
                 currentKnob = 0;

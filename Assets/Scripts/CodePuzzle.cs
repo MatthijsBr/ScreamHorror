@@ -8,11 +8,14 @@ public class CodePuzzle : MonoBehaviour
     [SerializeField] string correctCode;
     [SerializeField] Puzzle puzzle;
     [SerializeField] TextMeshProUGUI inputScreen;
+    [SerializeField] AudioClip correctSound;
+    [SerializeField] AudioClip incorrectSound;
+    AudioSource audioSource;
     string currentCode = "";
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,11 +40,13 @@ public class CodePuzzle : MonoBehaviour
     {
         if (currentCode == correctCode)
         {
-            puzzle.PuzzleFinished(true);
+            audioSource.PlayOneShot(correctSound);
+            puzzle.PuzzleFinished(true);      
         }
         else
         {
             // Play incorrect sound
+            audioSource.PlayOneShot(incorrectSound);
 
             currentCode = "";
             inputScreen.text = "";

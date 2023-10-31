@@ -14,6 +14,8 @@ public class ConnectLines : MonoBehaviour
     AudioSource audioSource;
     int currentKnob = 0;
 
+    [SerializeField] bool[] upIsGood;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +30,14 @@ public class ConnectLines : MonoBehaviour
         if (Input.GetButtonDown("Interact"))
         {
             // Check if rotation is correct
-            if ((Knobs[currentKnob].rotation.eulerAngles.z > minRotation && Knobs[currentKnob].rotation.eulerAngles.z < maxRotation) ||
-                (Knobs[currentKnob].rotation.eulerAngles.z - 180 > minRotation) && (Knobs[currentKnob].rotation.eulerAngles.z - 180 < maxRotation))
-            {     
+            if (((Knobs[currentKnob].rotation.eulerAngles.z > minRotation + 360 || Knobs[currentKnob].rotation.eulerAngles.z < maxRotation) && upIsGood[currentKnob]) ||
+                (Knobs[currentKnob].rotation.eulerAngles.z - 180 > minRotation) && (Knobs[currentKnob].rotation.eulerAngles.z - 180 < maxRotation && !upIsGood[currentKnob]))
+            {
+                if (upIsGood[currentKnob])
+                    Knobs[currentKnob].rotation = Quaternion.Euler(0, 0, 0);
+                else
+                    Knobs[currentKnob].rotation = Quaternion.Euler(0, 0, 180);
+
                 currentKnob++;
 
                 
